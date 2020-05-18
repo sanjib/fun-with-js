@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            background: black;
+        }
+        body > div {
+            text-align: center;
+        }
+        .logo, .astronaut { width: 90px; margin: 30px; }
+        #demo1, #demo2, #demo3 { height: 160px; }
+        #demo3 .circle {
+            background: green;
+            width: 40px;
+            height: 40px;
+            display: inline-block;
+            margin: 20px;
+            border-radius: 50%;
+        }
+        #demo3 > * {
+            vertical-align: middle;
+        }
+        #demo3 div:nth-child(2) { background: lightskyblue; }
+        #demo3 div:nth-child(3) { background: orange; }
+        #demo3 div:nth-child(4) { background: palevioletred; }
+        #demo3 div:nth-child(5) { background: mediumpurple; }
+        #demo3 div:nth-child(6) { background: lightgreen; }
+    </style>
+</head>
+<body>
+
+<div id="demo1">
+    <img class="logo" src="../assets/images/logo-man.svg" alt="GreenSock superhero logo" />
+</div>
+
+<div id="demo2">
+    <img class="logo" src="../assets/images/logo-man.svg" alt="GreenSock superhero logo" />
+    <img class="astronaut" src="../assets/images/rocket-man.svg" alt="Rocket man" />
+</div>
+
+<div id="demo3">
+    <img class="logo" src="../assets/images/logo-man.svg" alt="GreenSock superhero logo" />
+
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.2.6/gsap.min.js" crossorigin></script>
+<script src="script.js"></script>
+
+</body>
+</html>
