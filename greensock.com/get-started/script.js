@@ -1,10 +1,8 @@
 // to
-var tl1 = gsap.timeline({
-    repeat: 4
-});
+var tl1 = gsap.timeline();
 
 tl1.to('#demo1 .logo', {
-    duration: 2,
+    duration: 3,
     x: 250,
     backgroundColor: 'purple',
     borderRadius: '20%',
@@ -22,7 +20,7 @@ tl2.set('#demo2 .logo, .astronaut', {
 });
 
 tl2.to('#demo2 .logo, .astronaut', {
-    duration: 15,
+    duration: 8,
     rotation: 360
 })
 
@@ -38,12 +36,12 @@ tl2.to(myObject, {
 
 // from
 var tl3 = gsap.timeline({
-    repeat: 2,
+    repeat: 1,
     yoyo: true
 });
 
 tl3.from('#demo3 .logo', {
-    duration: 1.5,
+    duration: 1,
     opacity: 0,
     scale: 0.3,
     ease: 'back'
