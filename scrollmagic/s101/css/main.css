@@ -117,6 +117,10 @@ body {
 #project03 h2 {
     color: #F5876F;
 }
+#main {
+    position: relative;
+    background-color: white;
+}
 
 /* =Footer */
 .footer-container {
