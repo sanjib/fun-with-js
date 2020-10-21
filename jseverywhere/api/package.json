@@ -13,11 +13,13 @@
       "**.test.js"
     ]
   },
+  "repository": {},
+  "license": "MIT",
   "keywords": [],
   "author": "Sanjib Ahmad",
   "dependencies": {
-    "apollo-server-express": "2.4.0",
-    "bcrypt": "3.0.6",
+    "apollo-server-express": "^2.18.2",
+    "bcrypt": "^5",
     "cors": "2.8.5",
     "dotenv": "6.1.0",
     "express": "4.16.4",
@@ -31,7 +33,7 @@
     "marked": "0.7.0",
     "md5": "2.2.1",
     "mongoose": "5.7.13",
-    "nodemon": "1.18.7",
+    "nodemon": "^2",
     "passport": "0.4.0",
     "passport-github2": "0.1.11"
   },
@@ -40,7 +42,7 @@
     "eslint-config-prettier": "4.0.0",
     "eslint-plugin-prettier": "3.0.1",
     "faker": "4.1.0",
-    "node-fetch": "2.5.0",
+    "node-fetch": "^2.6.1",
     "prettier": "1.18.2"
   }
 }
