@@ -32,3 +32,6 @@ app.listen({ port }, () => {
     `GraphQL server running at http://localhost:${port}${server.graphqlPath}`
   );
 });
+
+// Password & token test
+require('./scratch/password_token_test');
