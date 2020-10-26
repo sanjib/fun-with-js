@@ -11,12 +11,12 @@ module.exports = {
     mongoose.connect(DB_HOST); // Now connect to db
     // Log success
     mongoose.connection.on('connected', function() {
-      console.log(`MongoDB conn success ${DB_HOST}`);
+      console.log(`-s-> MongoDB conn success ${DB_HOST}`);
     });
     // Log error in case of connection fail
     mongoose.connection.on('error', err => {
       console.error(err);
-      console.log(`MongoDB conn err ${DB_HOST}`);
+      console.log(`-s-> MongoDB conn err ${DB_HOST}`);
       process.exit();
     });
   },

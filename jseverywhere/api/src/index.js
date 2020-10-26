@@ -1,6 +1,18 @@
 const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
 require('dotenv').config();
+const jwt = require('jsonwebtoken');
+
+// Get user from token
+const getUser = token => {
+  if (token) {
+    try {
+      return jwt.verify(token, process.env.JWT_SECRET);
+    } catch (err) {
+      throw new Error('-s-> Session invalid!');
+    }
+  }
+};
 
 // Local imports
 const db = require('./db'); // Mongoose connection
@@ -21,7 +33,11 @@ app.get('/', (req, res) => res.send('Oak Notes API'));
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: () => ({ models })
+  context: ({ req }) => {
+    const token = req.headers.authorization;
+    const user = getUser(token);
+    return { models, user };
+  }
 });
 server.applyMiddleware({ app, path: '/api' }); // Inject Express
 
@@ -32,6 +48,3 @@ app.listen({ port }, () => {
     `GraphQL server running at http://localhost:${port}${server.graphqlPath}`
   );
 });
-
-// Password & token test
-require('./scratch/password_token_test');

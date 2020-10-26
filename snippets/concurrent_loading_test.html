@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      margin: 0;
+    }
+
+    h1 {
+      margin: 0;
+    }
+
+    .flower-images {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    .flower-image {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Flowers</h1>
+  <div class="flower-images">
+    <div><img class="flower-image" id="chrysantheme" src="./images/flower-image-pre-load.jpg" /></div>
+    <div><img class="flower-image" id="rose" src="./images/flower-image-pre-load.jpg" /></div>
+    <div><img class="flower-image" id="citronella" src="./images/flower-image-pre-load.jpg" /></div>
+    <div><img class="flower-image" id="cymbidium" src="./images/flower-image-pre-load.jpg" /></div>
+    <div><img class="flower-image" id="stewartia" src="./images/flower-image-pre-load.jpg" /></div>
+    <div><img class="flower-image" id="lotus" src="./images/flower-image-pre-load.jpg" /></div>
+  </div>
+
+  <script>
+    // fetchImage concurrently fetches image data from given URL and 
+    // sets the image in document based on the element Id.
+    const fetchImage = async (imgId, url) => {
+      const response = await fetch(url);
+      const data = await response.blob();
+      let imgElement = document.getElementById(imgId);
+      imgElement.src = URL.createObjectURL(data);
+    }
+
+    // The rose and lotus images are intentionally larger than the rest of the images
+    // to make sure of async fetching and loading of images. Each rose and lotus images
+    // also contain 2 versions (smaller and larger file size) to easily test the
+    // different sizes. 
+    roseURL600 = 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Rosa_%27Rosengr%C3%A4fin_Marie_Henriette%27_%28actm%29.jpg/600px-Rosa_%27Rosengr%C3%A4fin_Marie_Henriette%27_%28actm%29.jpg';
+    roseURL1024 = 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Rosa_%27Rosengr%C3%A4fin_Marie_Henriette%27_%28actm%29.jpg/1024px-Rosa_%27Rosengr%C3%A4fin_Marie_Henriette%27_%28actm%29.jpg';
+
+    lotus800 = 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Lotus_flower_%28978659%29.jpg/800px-Lotus_flower_%28978659%29.jpg';
+    lotus1280 = 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Lotus_flower_%28978659%29.jpg/1280px-Lotus_flower_%28978659%29.jpg';
+
+    const flowerURLs = {
+      chrysantheme: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Chrysantheme_rot_tautropfen_-20191024-RM-102058.jpg/800px-Chrysantheme_rot_tautropfen_-20191024-RM-102058.jpg',
+      rose: roseURL1024,
+      citronella: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Lily_Lilium_%27Citronella%27_Flower.jpg/773px-Lily_Lilium_%27Citronella%27_Flower.jpg',
+      cymbidium: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Cymbidium_Clarisse_Austin_%27Best_Pink%27_Flowers_2000px.JPG/510px-Cymbidium_Clarisse_Austin_%27Best_Pink%27_Flowers_2000px.JPG',
+      stewartia: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Stewartia_rostrata._21-06-2019._%28d.j.b%29._02.jpg/600px-Stewartia_rostrata._21-06-2019._%28d.j.b%29._02.jpg',
+      lotus: lotus1280,
+    };
+
+    for (flowerName in flowerURLs) {
+      let url = flowerURLs[flowerName];
+      fetchImage(flowerName, url);
+    }
+  </script>
+</body>
+
+</html>

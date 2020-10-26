@@ -7,11 +7,13 @@
 - GraphQL
   - Schema/typeDefs (schema.js)
     - Note
+    - User
     - Query
     - Mutation
   - Resolvers (resolvers/index.js)
-    - Query     -> Mongoose Models (resolvers/query.js)
-    - Mutation  -> Mongoose Models (resolvers/mutation.js)
+    - Query (resolvers/query.js)        -> connects to -> Models 
+    - Mutation (resolvers/mutation.js)  -> connects to -> Models
+    - DateTime
 - Mongoose
   - Mongoose Connection (db.js)
     - connect
@@ -20,7 +22,19 @@
     - Note (models/note.js)
       - schema
       - model
+    - User (models/user.js)
+      - schema
+      - model
 - Apollo
   - typeDefs (GraphQL)
   - resolvers (GraphQL)
-  - models (Mongoose)
+  - context
+    - models (Mongoose)
+    - user (via JWT)
+
+## Adding New Feature Pattern
+
+1. GraphQL schema (schema.js)
+2. Database model (models/*)
+3. Resolver functions (resolvers/*)
+
