@@ -25,3 +25,8 @@ A social notes application based on the book JavaScript Everywhere.
   - list their own
   - mark notes of other users
 
+## GraphQL Client Libraries
+
+- Apollo
+- Relay
+- urql
