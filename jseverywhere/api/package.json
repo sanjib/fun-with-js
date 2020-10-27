@@ -16,7 +16,7 @@
   "repository": {},
   "license": "MIT",
   "keywords": [],
-  "author": "Sanjib Ahmad",
+  "author": "Sanjib Ahmad <sanjib@sanjib.org>",
   "dependencies": {
     "apollo-server-express": "^2.18.2",
     "bcrypt": "^5",
