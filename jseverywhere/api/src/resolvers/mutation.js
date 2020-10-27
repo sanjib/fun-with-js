@@ -100,8 +100,8 @@ module.exports = {
       });
       return jwt.sign({ id: user._id }, process.env.JWT_SECRET);
     } catch (err) {
-      console.log('-s-> error creating user:', err);
-      throw new Error('-s-> Error creating user account!');
+      console.log('--> error creating user:', err);
+      throw new Error('--> Error creating user account!');
     }
   },
   signIn: async (parent, { username, email, password }, { models }) => {
@@ -113,12 +113,12 @@ module.exports = {
     });
     // Error invalid user
     if (!user) {
-      throw new Error('-s-> Error signing in!');
+      throw new Error('--> Error signing in!');
     }
     const validPassword = await bcrypt.compare(password, user.password);
     // Error password doesn't match
     if (!validPassword) {
-      throw new Error('-s-> Error signing in!');
+      throw new Error('--> Error signing in!');
     }
     // Success send token
     return jwt.sign({ id: user._id }, process.env.JWT_SECRET);

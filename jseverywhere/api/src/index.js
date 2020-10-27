@@ -1,15 +1,19 @@
 const express = require('express');
+const helmet = require('helmet');
+const cors = require('cors');
 const { ApolloServer } = require('apollo-server-express');
+const depthLimit = require('graphql-depth-limit');
+const { createComplexityLimitRule } = require('graphql-validation-complexity');
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
 
 // Get user from token
-const getUser = token => {
+const getUser = async token => {
   if (token) {
     try {
-      return jwt.verify(token, process.env.JWT_SECRET);
+      return await jwt.verify(token, process.env.JWT_SECRET);
     } catch (err) {
-      throw new Error('-s-> Session invalid!');
+      throw new Error('--> Session invalid!');
     }
   }
 };
@@ -26,6 +30,8 @@ const DB_HOST = process.env.DB_HOST;
 
 // Express, Mongoose
 const app = express();
+app.use(helmet());
+app.use(cors());
 db.connect(DB_HOST);
 app.get('/', (req, res) => res.send('Oak Notes API'));
 
@@ -33,9 +39,10 @@ app.get('/', (req, res) => res.send('Oak Notes API'));
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: ({ req }) => {
+  validationRules: [depthLimit(5), createComplexityLimitRule(1000)],
+  context: async ({ req }) => {
     const token = req.headers.authorization;
-    const user = getUser(token);
+    const user = await getUser(token);
     return { models, user };
   }
 });
