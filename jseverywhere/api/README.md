@@ -38,3 +38,29 @@
 2. Database model (models/*)
 3. Resolver functions (resolvers/*)
 
+## Heroku Deployment
+
+**CLI Installation Link**
+
+https://devcenter.heroku.com/articles/heroku-cli#download-and-install
+
+
+**HTTP Git authentication Troubleshooting**
+https://devcenter.heroku.com/articles/git#http-git-authentication
+
+Heroku login kept going in a loop. Had to delete entries in ~/_netrc.
+
+**Git & Test**
+
+```console
+$ heroku git:remote -a <YOUR_APP_NAME>
+$ git add .
+$ git commit -am "application ready for production"
+$ git push heroku master
+
+$ curl \
+  -X POST \
+  -H "Content-Type: application/json" \
+  --data '{ "query": "{ notes { id } }" }' \
+  https://YOUR_APP_NAME.herokuapp.com/api
+```
