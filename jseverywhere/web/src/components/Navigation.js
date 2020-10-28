@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Nav = styled.nav`
-  margin: 10px 20px;
+  padding: 10px 20px;
+  background: #eee;
 `;
 const List = styled.ul`
   margin: 0;
@@ -11,7 +12,7 @@ const List = styled.ul`
   list-style: none;
 `;
 const Item = styled.li`
-  line-height: 1.5;
+  line-height: 1.6;
 `;
 
 const Navigation = () => {
@@ -19,19 +20,31 @@ const Navigation = () => {
     <Nav>
       <List>
         <Item>
-          <span area-hidden="true" role="img">
+          <span
+            area-hidden="true"
+            role="img"
+            style={{ width: '22px', display: 'inline-block' }}
+          >
             🏠
           </span>
           &nbsp;<Link to="/">Home</Link>
         </Item>
         <Item>
-          <span area-hidden="true" role="img">
+          <span
+            area-hidden="true"
+            role="img"
+            style={{ width: '22px', display: 'inline-block' }}
+          >
             📓
           </span>
           &nbsp;<Link to="/my">My Notes</Link>
         </Item>
         <Item>
-          <span area-hidden="true" role="img">
+          <span
+            area-hidden="true"
+            role="img"
+            style={{ width: '22px', display: 'inline-block' }}
+          >
             🌟
           </span>
           &nbsp;<Link to="/favs">My Favorites</Link>

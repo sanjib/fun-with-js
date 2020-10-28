@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 const FooterTag = styled.footer`
-  margin: 10px 20px;
+  background: #ccc;
+  padding: 20px 20px 40px 20px;
 `;
 
 const Footer = () => {

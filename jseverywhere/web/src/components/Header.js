@@ -3,8 +3,9 @@ import styled from 'styled-components';
 import logo from '../img/logo.svg';
 
 const HeaderTag = styled.header`
+  background: #ccc;
   display: flex;
-  margin: 20px;
+  padding: 20px;
 `;
 const Logo = styled.div`
   margin-right: 5px;

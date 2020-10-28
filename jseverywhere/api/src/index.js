@@ -25,7 +25,7 @@ const typeDefs = require('./schema'); // GraphQL schema/typeDefs
 const resolvers = require('./resolvers'); // GraphQL resolvers
 
 // .env vars
-const port = process.env.PORT || 4010;
+const port = process.env.PORT;
 const DB_HOST = process.env.DB_HOST;
 
 // Express, Mongoose

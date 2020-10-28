@@ -23,7 +23,7 @@ export default createGlobalStyle`
       "header header"
       "nav    main  "
       "footer footer";
-    grid-template-columns: 1fr 3fr;
+    grid-template-columns: 1fr 4fr;
   }
   header {
     grid-area: header;
