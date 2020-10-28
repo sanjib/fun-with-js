@@ -6,7 +6,7 @@ const MyNotes = () => {
   });
   return (
     <div>
-      <h1>Oak Notes</h1>
+      <h1>My Notes</h1>
       <p>These are my notes</p>
     </div>
   );

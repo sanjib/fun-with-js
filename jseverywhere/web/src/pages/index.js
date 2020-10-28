@@ -5,12 +5,16 @@ import Home from './home';
 import MyNotes from './mynotes';
 import Favorites from './favorites';
 
+import Layout from '../components/Layout';
+
 const Pages = () => {
   return (
     <Router>
-      <Route exact path="/" component={Home} />
-      <Route path="/my" component={MyNotes} />
-      <Route path="/favs" component={Favorites} />
+      <Layout>
+        <Route exact path="/" component={Home} />
+        <Route path="/my" component={MyNotes} />
+        <Route path="/favs" component={Favorites} />
+      </Layout>
     </Router>
   );
 };
