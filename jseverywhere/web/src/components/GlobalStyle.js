@@ -39,7 +39,7 @@ export default createGlobalStyle`
   }
   h1 {
     margin-top: 0;
-    
+    color: #333;
   }
   a:link,
   a:visited {

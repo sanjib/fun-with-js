@@ -9,7 +9,7 @@ const NoteFeed = ({ notes }) => {
       {notes.map((note) => (
         <div key={note.id} style={{ margin: '6px 0' }}>
           <Link to={`/note/${note.id}`}>
-            {note.id} by {note.author.username} on{' '}
+            {note.content} by {note.author.username} on{' '}
             {format(parseISO(note.createdAt), 'MMM dd, yyyy')}
             {/* <Note note={note} /> */}
           </Link>

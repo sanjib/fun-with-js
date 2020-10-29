@@ -27,13 +27,13 @@ const GET_NOTES = gql`
 const Home = () => {
   const { data, loading, error, fetchMore } = useQuery(GET_NOTES);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <p>Loading, please wait...</p>;
   if (error) return <p>Error!</p>;
 
   const { notes, hasNextPage, cursor } = data.noteFeed;
 
+  // TODO: upgrade updateQuery
   /*
-
   The updateQuery callback for fetchMore is deprecated, and will be removed
   in the next major version of Apollo Client.
 
@@ -45,7 +45,6 @@ const Home = () => {
   The field policy system handles pagination more effectively than a
   hand-written updateQuery function, and you only need to define the policy
   once, rather than every time you call fetchMore.
-  
   */
 
   return (

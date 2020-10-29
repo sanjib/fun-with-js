@@ -1,10 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import logo from '../img/logo.svg';
 
 const HeaderTag = styled.header`
-  background: #ccc;
-  display: flex;
+  background: #333;
   padding: 20px;
 `;
 const Logo = styled.div`
@@ -17,10 +17,15 @@ const AppName = styled.div`
 const Header = () => {
   return (
     <HeaderTag>
-      <Logo>
-        <img src={logo} alt="Notes Logo" height="40" />
-      </Logo>
-      <AppName>Oak Notes</AppName>
+      <Link
+        to="/"
+        style={{ display: 'flex', textDecoration: 'none', color: '#eee' }}
+      >
+        <Logo>
+          <img src={logo} alt="Notes Logo" height="40" />
+        </Logo>
+        <AppName>Oak Notes</AppName>
+      </Link>
     </HeaderTag>
   );
 };
