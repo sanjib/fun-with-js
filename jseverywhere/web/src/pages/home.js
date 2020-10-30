@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useQuery, gql } from '@apollo/client';
 import ReactMarkdown from 'react-markdown';
 
@@ -25,6 +25,9 @@ const GET_NOTES = gql`
 `;
 
 const Home = () => {
+  useEffect(() => {
+    document.title = 'Oak Notes - Home';
+  });
   const { data, loading, error, fetchMore } = useQuery(GET_NOTES);
 
   if (loading) return <p>Loading, please wait...</p>;
@@ -48,7 +51,7 @@ const Home = () => {
   */
 
   return (
-    <div style={{ marginBottom: '20px' }}>
+    <div>
       <h1>Welcome to Oak Notes!</h1>
       <NoteFeed notes={notes} />
       {hasNextPage && (

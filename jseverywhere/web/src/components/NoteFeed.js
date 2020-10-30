@@ -6,7 +6,7 @@ import { format, parseISO } from 'date-fns';
 const NoteFeed = ({ notes }) => {
   return (
     <div style={{ marginBottom: '20px' }}>
-      {notes.map((note) => (
+      {notes.map(note => (
         <div key={note.id} style={{ margin: '6px 0' }}>
           <Link to={`/note/${note.id}`}>
             {note.content} by {note.author.username} on{' '}

@@ -8,6 +8,7 @@ const StyledNote = styled.article`
   background: #eee;
   padding: 20px;
   margin-bottom: 20px;
+  border-radius: 3px;
 `;
 const MetaData = styled.div`
   display: flex;

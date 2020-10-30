@@ -18,11 +18,15 @@ const Header = () => {
   return (
     <HeaderTag>
       <Link
-        to="/"
-        style={{ display: 'flex', textDecoration: 'none', color: '#eee' }}
+        to='/'
+        style={{
+          display: 'inline-flex',
+          textDecoration: 'none',
+          color: '#eee'
+        }}
       >
         <Logo>
-          <img src={logo} alt="Notes Logo" height="40" />
+          <img src={logo} alt='Notes Logo' height='40' />
         </Logo>
         <AppName>Oak Notes</AppName>
       </Link>

@@ -30,8 +30,10 @@ export default createGlobalStyle`
   }
   nav {
     grid-area: nav;
+    min-width: 200px;
   }
   main {
+    margin: 10px 20px 20px;
     grid-area: main;
   }
   footer {
@@ -40,6 +42,15 @@ export default createGlobalStyle`
   h1 {
     margin-top: 0;
     color: #333;
+  }
+  label {
+    justify-self: right;
+  }
+  form label,
+  form input,
+  form div,
+  form button {
+    margin: 5px;
   }
   a:link,
   a:visited {
@@ -53,7 +64,7 @@ export default createGlobalStyle`
   pre {
     max-width: 100%;
   }
-  @media (max-width: 450px) {
+  @media (max-width: 600px) {
     #root {
       grid-template-areas: 
       "header"
