@@ -36,6 +36,20 @@ const Home = () => {
     </Item>
   );
 };
+const NewNote = () => {
+  return (
+    <Item>
+      <span
+        area-hidden='true'
+        role='img'
+        style={{ width: '22px', display: 'inline-block' }}
+      >
+        ➕
+      </span>
+      &nbsp;<Link to='/note/new'>New Note</Link>
+    </Item>
+  );
+};
 const MyNotes = () => {
   return (
     <Item>
@@ -127,6 +141,7 @@ const Navigation = props => {
           <>
             <Item>Hello registered user!</Item>
             <Home />
+            <NewNote />
             <MyNotes />
             <MyFavs />
             <Logout client={client} history={props.history} />

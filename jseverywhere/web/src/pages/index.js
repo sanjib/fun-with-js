@@ -8,9 +8,10 @@ import {
 import { useQuery, gql } from '@apollo/client';
 
 import Home from './home';
-import MyNotes from './mynotes';
+import MyNotes from './note_my';
 import Favorites from './favorites';
 import NotePage from './note';
+import NewNote from './note_new';
 import SignIn from './signin';
 import SignUp from './signup';
 import SignUpThankYou from './signup_thankyou';
@@ -52,6 +53,7 @@ const Pages = () => {
       <Layout>
         <Switch>
           <Route exact path='/' component={Home} />
+          <PrivateRoute path='/note/new' component={NewNote} />
           <PrivateRoute path='/my' component={MyNotes} />
           <PrivateRoute path='/favs' component={Favorites} />
           <Route path='/note/:id' component={NotePage} />
