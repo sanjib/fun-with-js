@@ -31,6 +31,7 @@ const SignIn = props => {
   const [signIn, { loading, error }] = useMutation(SIGNIN_USER, {
     onCompleted: data => {
       localStorage.setItem('token', data.signIn);
+      client.cache.reset();
       client.writeQuery({
         query: IS_LOGGED_IN,
         data: { isLoggedIn: true }

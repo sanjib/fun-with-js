@@ -110,6 +110,7 @@ const Logout = ({ client, history }) => {
         type='button'
         onClick={() => {
           localStorage.removeItem('token');
+          client.cache.reset();
           client.writeQuery({
             query: IS_LOGGED_IN,
             data: { isLoggedIn: false }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useMutation } from '@apollo/client';
-import { CREATE_NOTE } from '../gql/query';
+import { CREATE_NOTE, GET_MY_NOTES, GET_NOTES } from '../gql/query';
 
 const NewNote = props => {
   useEffect(() => {
@@ -16,8 +16,9 @@ const NewNote = props => {
     });
   };
 
-  // On signup
+  // On New Note creation
   const [data, { loading, error }] = useMutation(CREATE_NOTE, {
+    refetchQueries: [{ query: GET_MY_NOTES }, { query: GET_NOTES }],
     onCompleted: data => {
       props.history.push(`/note/${data.newNote.id}`);
     }
