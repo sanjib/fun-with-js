@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Getting Started with Phaser 3</title>
+  <style>
+    body {
+      margin: 0;
+    }
+  </style>
+  <!-- 1. Include the JS file phaser-arcade-physics.min.js -->
+  <script src="https://cdn.jsdelivr.net/npm/phaser@3.15.1/dist/phaser-arcade-physics.min.js"></script>
+</head>
+
+<body>
+  <script>
+    // 2. Declare the config var
+    var config = {
+      // Renderer to use, AUTO picks WEBGL if available, else CANVAS
+      type: Phaser.AUTO,      // Phaser.AUTO | Phaser.CANVAS | Phaser.HEADLESS | Phaser.WEBGL
+      width: 800,             // game width
+      height: 600,            // game height
+      physics: {              // Physics configuration
+        default: 'arcade',    // arcade | impact | matter
+        arcade: {
+          gravity: { y: 200 }
+        }
+      },
+      // Collection of Phaser.Scene
+      scene: {
+        preload: preloadFoo,
+        create: createFoo
+      }
+    }
+    // 3. Create a new Phaser.Game
+    var game = new Phaser.Game(config);
+
+    // 4. Preload the 4 game assets (images)
+    function preloadFoo() {
+      this.load.setBaseURL('./images');
+      this.load.image('background', 'background.png');
+      this.load.image('boss', 'ball-boss.png');
+      this.load.image('particleRed', 'particle-red.png');
+    }
+
+    // 5. Create the game
+    function createFoo() {
+      // - Add background image
+      this.add.image(400, 300, 'background');
+      // - Create a particles emitter
+      var particles = this.add.particles('particleRed');
+      var emitter = particles.createEmitter({
+        speed: 100,
+        scale: { start: 1, end: 0 },
+        blendMode: 'ADD'
+      });
+      // - Create the ball boss
+      var boss = this.physics.add.image(400, 100, 'boss');
+      boss.setVelocity(100, 200);
+      boss.setBounce(1, 1);
+      boss.setCollideWorldBounds(true);
+      // - Attach emitter to boss
+      emitter.startFollow(boss);
+    }
+  </script>
+</body>
+
+</html>
