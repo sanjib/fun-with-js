@@ -1,28 +1,9 @@
 import React, { useEffect } from 'react';
-import { useQuery, gql } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import ReactMarkdown from 'react-markdown';
-
+import { GET_NOTES } from '../gql/query';
 import NoteFeed from '../components/NoteFeed';
-
-const GET_NOTES = gql`
-  query noteFeed($cursor: String) {
-    noteFeed(cursor: $cursor) {
-      cursor
-      hasNextPage
-      notes {
-        id
-        createdAt
-        content
-        favoriteCount
-        author {
-          username
-          id
-          avatar
-        }
-      }
-    }
-  }
-`;
+import Loading from '../components/Loading';
 
 const Home = () => {
   useEffect(() => {
@@ -30,7 +11,7 @@ const Home = () => {
   });
   const { data, loading, error, fetchMore } = useQuery(GET_NOTES);
 
-  if (loading) return <p>Loading, please wait...</p>;
+  if (loading) return <Loading />;
   if (error) return <p>Error!</p>;
 
   const { notes, hasNextPage, cursor } = data.noteFeed;
@@ -66,12 +47,12 @@ const Home = () => {
                     hasNextPage: fetchMoreResult.noteFeed.hasNextPage,
                     notes: [
                       ...previousResult.noteFeed.notes,
-                      ...fetchMoreResult.noteFeed.notes,
+                      ...fetchMoreResult.noteFeed.notes
                     ],
-                    __typename: 'noteFeed',
-                  },
+                    __typename: 'noteFeed'
+                  }
                 };
-              },
+              }
             })
           }
         >

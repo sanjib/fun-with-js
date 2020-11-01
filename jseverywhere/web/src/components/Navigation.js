@@ -1,13 +1,8 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
-import { useQuery, gql } from '@apollo/client';
-
-const IS_LOGGED_IN = gql`
-  query IsUserLoggedIn {
-    isLoggedIn @client
-  }
-`;
+import { useQuery } from '@apollo/client';
+import { IS_LOGGED_IN } from '../gql/query';
 
 const Nav = styled.nav`
   padding: 10px 20px;

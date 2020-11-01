@@ -1,24 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useMutation, gql } from '@apollo/client';
-
-const CREATE_NOTE = gql`
-  mutation newNote($content: String!) {
-    newNote(content: $content) {
-      id
-      content
-      createdAt
-      favoriteCount
-      favoritedBy {
-        id
-        username
-      }
-      author {
-        username
-        id
-      }
-    }
-  }
-`;
+import { useMutation } from '@apollo/client';
+import { CREATE_NOTE } from '../gql/query';
 
 const NewNote = props => {
   useEffect(() => {

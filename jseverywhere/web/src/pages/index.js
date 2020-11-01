@@ -5,8 +5,8 @@ import {
   Redirect,
   Switch
 } from 'react-router-dom';
-import { useQuery, gql } from '@apollo/client';
-
+import { useQuery } from '@apollo/client';
+import { IS_LOGGED_IN } from '../gql/query';
 import Home from './home';
 import MyNotes from './note_my';
 import Favorites from './favorites';
@@ -15,18 +15,12 @@ import NewNote from './note_new';
 import SignIn from './signin';
 import SignUp from './signup';
 import SignUpThankYou from './signup_thankyou';
-
 import Layout from '../components/Layout';
-
-const IS_LOGGED_IN = gql`
-  query IsUserLoggedIn {
-    isLoggedIn @client
-  }
-`;
+import Loading from '../components/Loading';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const { loading, error, data } = useQuery(IS_LOGGED_IN);
-  if (loading) return <p>Loading, please wait...</p>;
+  if (loading) return <Loading />;
   if (error) return <p>Error!</p>;
   return (
     <Route

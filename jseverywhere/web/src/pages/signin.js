@@ -1,16 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useMutation, useQuery, gql } from '@apollo/client';
-
-const SIGNIN_USER = gql`
-  mutation signIn($email: String, $password: String!) {
-    signIn(email: $email, password: $password)
-  }
-`;
-const IS_LOGGED_IN = gql`
-  query IsUserLoggedIn {
-    isLoggedIn @client
-  }
-`;
+import { useMutation, useQuery } from '@apollo/client';
+import { IS_LOGGED_IN, SIGNIN_USER } from '../gql/query';
 
 const SignIn = props => {
   useEffect(() => {

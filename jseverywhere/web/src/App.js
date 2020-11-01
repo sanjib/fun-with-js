@@ -4,13 +4,12 @@ import {
   ApolloClient,
   ApolloProvider,
   InMemoryCache,
-  createHttpLink,
-  gql
+  createHttpLink
 } from '@apollo/client';
 import { setContext } from 'apollo-link-context';
-
 import GlobalStyle from './components/GlobalStyle';
 import Pages from './pages';
+import { IS_LOGGED_IN } from './gql/query';
 
 const uri = process.env.API_URI;
 const httpLink = createHttpLink({ uri });
@@ -30,11 +29,6 @@ const client = new ApolloClient({
   connectToDevTools: true
 });
 
-const IS_LOGGED_IN = gql`
-  query IsUserLoggedIn {
-    isLoggedIn @client
-  }
-`;
 const data = { isLoggedIn: !!localStorage.getItem('token') };
 cache.writeQuery({ query: IS_LOGGED_IN, data });
 // client.onResetStore(() => cache.writeQuery({ query: IS_LOGGED_IN, data }));
