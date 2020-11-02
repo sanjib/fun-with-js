@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
-import { IS_LOGGED_IN, SIGNUP_USER } from '../gql/query';
+import { IS_LOGGED_IN } from '../gql/query';
+import { SIGNUP_USER } from '../gql/mutation';
 
 const SignUp = props => {
   // console.log('--> props', props);

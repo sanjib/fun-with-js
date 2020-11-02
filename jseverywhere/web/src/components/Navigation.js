@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import { useQuery } from '@apollo/client';
-import { IS_LOGGED_IN } from '../gql/query';
+import { IS_LOGGED_IN, GET_ME } from '../gql/query';
 
 const Nav = styled.nav`
   padding: 10px 20px;
@@ -102,8 +102,6 @@ const SignIn = () => {
   );
 };
 const Logout = ({ client, history }) => {
-  // console.log('-->', client, history);
-  // return <div>x</div>;
   return (
     <Item>
       <button
@@ -125,17 +123,22 @@ const Logout = ({ client, history }) => {
 };
 
 const Navigation = props => {
-  // console.log('--> props', props);
-
+  // Query is user logged in
   const { data, client } = useQuery(IS_LOGGED_IN);
-  // console.log('--> is logged in:', data);
+
+  // Query me
+  let username = '';
+  const getMeObj = useQuery(GET_ME);
+  if (getMeObj.data) {
+    username = getMeObj.data.me.username;
+  }
 
   return (
     <Nav>
       <List>
         {data.isLoggedIn ? (
           <>
-            <Item>Hello registered user!</Item>
+            <Item>Hello {username}!</Item>
             <Home />
             <NewNote />
             <MyNotes />

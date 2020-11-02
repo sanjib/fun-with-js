@@ -82,34 +82,15 @@ const GET_MY_FAVORITES = gql`
   }
 `;
 
-const CREATE_NOTE = gql`
-  mutation newNote($content: String!) {
-    newNote(content: $content) {
+const GET_ME = gql`
+  query me {
+    me {
       id
-      content
-      createdAt
-      favoriteCount
-      favoritedBy {
-        id
-        username
-      }
-      author {
-        username
+      username
+      favorites {
         id
       }
     }
-  }
-`;
-
-const SIGNIN_USER = gql`
-  mutation signIn($email: String, $password: String!) {
-    signIn(email: $email, password: $password)
-  }
-`;
-
-const SIGNUP_USER = gql`
-  mutation signUp($email: String!, $username: String!, $password: String!) {
-    signUp(email: $email, username: $username, password: $password)
   }
 `;
 
@@ -118,8 +99,6 @@ export {
   GET_NOTE,
   GET_MY_NOTES,
   GET_MY_FAVORITES,
-  CREATE_NOTE,
   IS_LOGGED_IN,
-  SIGNIN_USER,
-  SIGNUP_USER
+  GET_ME
 };
