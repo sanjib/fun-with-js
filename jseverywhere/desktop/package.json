@@ -1,0 +1,22 @@
+{
+  "name": "oak-notes-desktop",
+  "version": "0.1.0",
+  "description": "An Electron client for Oak Notes",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "electron src/index.js",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "repository": {},
+  "author": "Sanjib Ahmad <sanjib@sanjib.org>",
+  "license": "MIT",
+  "bugs": {},
+  "devDependencies": {
+    "electron": "^10.1.5",
+    "electron-builder": "^22.9.1"
+  },
+  "dependencies": {
+    "electron-util": "^0.14.2"
+  }
+}
