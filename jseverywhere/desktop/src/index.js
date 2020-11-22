@@ -1,5 +1,6 @@
 const { app, BrowserWindow } = require('electron');
-const { is } = require('electron-util'); // tools for dev tools
+const { is, setContentSecurityPolicy } = require('electron-util');
+const config = require('./config');
 
 let window;
 
@@ -8,13 +9,34 @@ function createWindow() {
     width: 800,
     height: 600,
     webPreferences: {
-      nodeIntegration: true
+      nodeIntegration: is.development ? false : true
     }
   });
-  window.loadFile('index.html');
 
-  // open dev tools in dev environment
-  if (is.development) window.webContents.openDevTools();
+  // alt to loadURL is loadFile
+  // example: window.loadFile('index.html');
+
+  if (is.development) {
+    window.loadURL(config.LOCAL_WEB_URL);
+    window.webContents.openDevTools(); // open dev tools in dev environment
+  } else {
+    window.loadURL(config.PRODUCTION_WEB_URL);
+  }
+
+  // Set CSP in production mode
+  if (!is.development) {
+    setContentSecurityPolicy(`
+      default-src 'none';
+      script-src 'self';
+      img-src 'self' https://www.gravatar.com;
+      style-src 'self' 'unsafe-inline';
+      font-src 'self';
+      connect-src 'self' ${config.PRODUCTION_API_URL};
+      base-uri 'none';
+      form-action 'none';
+      frame-ancestors 'none';
+    `);
+  }
 
   window.on('closed', () => {
     window = null;

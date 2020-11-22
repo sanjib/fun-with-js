@@ -3,6 +3,13 @@
   "version": "0.1.0",
   "description": "An Electron client for Oak Notes",
   "main": "src/index.js",
+  "build": {
+    "appId": "dev.oak.notes-jse-desktop",
+    "productName": "Oak Notes Desktop",
+    "directories": {
+      "buildResources": "resources"
+    }
+  },
   "scripts": {
     "start": "electron src/index.js",
     "pack": "electron-builder --dir",
