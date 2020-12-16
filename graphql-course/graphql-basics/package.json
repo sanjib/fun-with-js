@@ -1,7 +1,7 @@
 {
   "scripts": {
     "start:build": "tsc -w",
-    "start:run": "nodemon build",
+    "start:run": "nodemon build --ext js,graphql",
     "start": "concurrently npm:start:*"
   },
   "dependencies": {
