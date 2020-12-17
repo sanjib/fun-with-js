@@ -1,5 +1,5 @@
 import { v4 as uuid4 } from 'uuid'
-
+import { PubSub } from 'graphql-yoga'
 import { User } from './User'
 import { Post } from './Post'
 import { Comment } from './Comment'
@@ -107,11 +107,13 @@ export const Mutation = {
     },
     {
       db: { users, posts },
+      pubsub,
     }: {
       db: {
         users: User[]
         posts: Post[]
       }
+      pubsub: PubSub
     },
     _info: object
   ): Post => {
@@ -127,6 +129,16 @@ export const Mutation = {
       author,
     }
     posts.push(post)
+
+    // Pubsub
+    if (post.published === true)
+      pubsub.publish(`Post`, {
+        post: {
+          mutation: 'CREATED',
+          data: post,
+        },
+      })
+
     return post
   },
   deletePost: (
@@ -134,11 +146,13 @@ export const Mutation = {
     { id }: { id: string },
     {
       db: { posts, comments },
+      pubsub,
     }: {
       db: {
         posts: Post[]
         comments: Comment[]
       }
+      pubsub: PubSub
     },
     _info: object
   ) => {
@@ -153,6 +167,13 @@ export const Mutation = {
     comments = comments.filter(
       (comment: Comment): boolean => comment.post !== id
     )
+
+    // 3. Pubsub - notify if deleted post was published
+    if (deletedPost.published === true)
+      pubsub.publish('Post', {
+        post: { mutation: 'DELETED', data: deletedPost },
+      })
+
     return deletedPost
   },
   updatePost: (
@@ -164,17 +185,35 @@ export const Mutation = {
       id: string
       data: { title: string; body: string; published: boolean }
     },
-    { db: { posts } }: { db: { posts: Post[] } },
+    { db: { posts }, pubsub }: { db: { posts: Post[] }; pubsub: PubSub },
     _info: object
   ) => {
     // 1. Get post
     const post = posts.find((post: Post): boolean => post.id === id)
+    const origPost = { ...post }
+
     if (!post) throw new Error('Cannot find post')
 
     // 2. Validate and Update
     if (typeof title === 'string') post.title = title
     if (typeof body === 'string') post.body = body
-    if (typeof published === 'boolean') post.published = published
+    if (typeof published === 'boolean') {
+      post.published = published
+
+      // 3. Also notify pubsub
+      if (origPost.published && !post.published) {
+        // deleted
+        pubsub.publish('Post', {
+          post: { mutation: 'DELETED', data: origPost },
+        })
+      } else if (!origPost.published && post.published) {
+        // created
+        pubsub.publish('Post', { post: { mutation: 'CREATED', data: post } })
+      } else if (post.published) {
+        // updated
+        pubsub.publish('Post', { post: { mutation: 'UPDATED', data: post } })
+      }
+    }
     return post
   },
   createComment: (
@@ -190,12 +229,14 @@ export const Mutation = {
     },
     {
       db: { users, posts, comments },
+      pubsub,
     }: {
       db: {
         users: User[]
         posts: Post[]
         comments: Comment[]
       }
+      pubsub: PubSub
     },
     _info: object
   ): Comment => {
@@ -218,12 +259,20 @@ export const Mutation = {
       post,
     }
     comments.push(comment)
+    // PubSub
+    pubsub.publish(`Comment for postId ${post}`, {
+      comment: { mutation: 'CREATED', data: comment },
+    })
+
     return comment
   },
   deleteComment: (
     _parent: object,
     { id }: { id: string },
-    { db: { comments } }: { db: { comments: Comment[] } },
+    {
+      db: { comments },
+      pubsub,
+    }: { db: { comments: Comment[] }; pubsub: PubSub },
     _info: object
   ) => {
     const commentIndex: number = comments.findIndex(
@@ -232,6 +281,12 @@ export const Mutation = {
     if (commentIndex === -1) throw new Error('Comment ID not found')
     // 1. Delete proposed comment
     const [deletedComment] = comments.splice(commentIndex, 1)
+
+    // PubSub
+    pubsub.publish(`Comment for postId ${deletedComment.post}`, {
+      comment: { mutation: 'DELETED', data: deletedComment },
+    })
+
     return deletedComment
   },
   updateComment: (
@@ -243,7 +298,10 @@ export const Mutation = {
       id: string
       data: { text: string }
     },
-    { db: { comments } }: { db: { comments: Comment[] } },
+    {
+      db: { comments },
+      pubsub,
+    }: { db: { comments: Comment[] }; pubsub: PubSub },
     _info: object
   ): Comment => {
     // 1. Find comment
@@ -253,7 +311,14 @@ export const Mutation = {
     if (!comment) throw new Error('Cannot find comment to update')
 
     // 2. Validate & Update
-    if (typeof text === 'string') comment.text = text
+    if (typeof text === 'string') {
+      comment.text = text
+    }
+
+    // PubSub
+    pubsub.publish(`Comment for postId ${comment.post}`, {
+      comment: { mutation: 'UPDATED', data: comment },
+    })
 
     return comment
   },

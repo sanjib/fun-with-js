@@ -42,8 +42,17 @@ export const Query = {
   },
   comments: (
     _parent: undefined,
-    _args: {},
+    { postId }: { postId: string },
     { db: { comments } }: { db: { comments: Comment[] } },
     _info: object
-  ): Comment[] => comments,
+  ): Comment[] => {
+    if (postId) {
+      const filteredComments = comments.filter(
+        (comment: Comment): boolean => comment.post === postId
+      )
+      if (!filteredComments) throw new Error('Comment not found')
+      return filteredComments
+    }
+    return comments
+  },
 }
