@@ -4,6 +4,12 @@ import { User } from './User'
 import { Post } from './Post'
 import { Comment } from './Comment'
 
+enum MutationType {
+  CREATED = 'CREATED',
+  UPDATED = 'UPDATED',
+  DELETED = 'DELETED',
+}
+
 export const Mutation = {
   createUser: (
     _parent: object,
@@ -134,7 +140,7 @@ export const Mutation = {
     if (post.published === true)
       pubsub.publish(`Post`, {
         post: {
-          mutation: 'CREATED',
+          mutation: MutationType.CREATED,
           data: post,
         },
       })
@@ -171,7 +177,7 @@ export const Mutation = {
     // 3. Pubsub - notify if deleted post was published
     if (deletedPost.published === true)
       pubsub.publish('Post', {
-        post: { mutation: 'DELETED', data: deletedPost },
+        post: { mutation: MutationType.DELETED, data: deletedPost },
       })
 
     return deletedPost
@@ -204,14 +210,18 @@ export const Mutation = {
       if (origPost.published && !post.published) {
         // deleted
         pubsub.publish('Post', {
-          post: { mutation: 'DELETED', data: origPost },
+          post: { mutation: MutationType.DELETED, data: origPost },
         })
       } else if (!origPost.published && post.published) {
         // created
-        pubsub.publish('Post', { post: { mutation: 'CREATED', data: post } })
+        pubsub.publish('Post', {
+          post: { mutation: MutationType.CREATED, data: post },
+        })
       } else if (post.published) {
         // updated
-        pubsub.publish('Post', { post: { mutation: 'UPDATED', data: post } })
+        pubsub.publish('Post', {
+          post: { mutation: MutationType.UPDATED, data: post },
+        })
       }
     }
     return post
@@ -261,7 +271,7 @@ export const Mutation = {
     comments.push(comment)
     // PubSub
     pubsub.publish(`Comment for postId ${post}`, {
-      comment: { mutation: 'CREATED', data: comment },
+      comment: { mutation: MutationType.CREATED, data: comment },
     })
 
     return comment
@@ -284,7 +294,7 @@ export const Mutation = {
 
     // PubSub
     pubsub.publish(`Comment for postId ${deletedComment.post}`, {
-      comment: { mutation: 'DELETED', data: deletedComment },
+      comment: { mutation: MutationType.DELETED, data: deletedComment },
     })
 
     return deletedComment
@@ -317,7 +327,7 @@ export const Mutation = {
 
     // PubSub
     pubsub.publish(`Comment for postId ${comment.post}`, {
-      comment: { mutation: 'UPDATED', data: comment },
+      comment: { mutation: MutationType.UPDATED, data: comment },
     })
 
     return comment
