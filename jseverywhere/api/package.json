@@ -33,6 +33,7 @@
     "marked": "0.7.0",
     "md5": "2.2.1",
     "mongoose": "5.7.13",
+    "mquery": "^3.2.3",
     "nodemon": "^2",
     "passport": "0.4.0",
     "passport-github2": "0.1.11"
